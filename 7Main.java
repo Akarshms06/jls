@@ -1,95 +1,87 @@
 import java.util.Scanner;
-
-class Circle {
-    double radius;
-    String color;
-
-    Circle() {
-        radius = 1.0;
-        color = "blue";
-    }
-
-    Circle(double radius) {
-        this.radius = radius;
-        this.color = "blue";
-    }
-
-    Circle(double radius, String color) {
-        this.radius = radius;
-        this.color = color;
-    }
-
-    double getArea() {
-        return Math.PI * radius * radius;
-    }
-
-    double getRadius() {
-        return radius;
-    }
-
-    String getColor() {
-        return color;
-    }
+class circle
+{ double radius;
+String color;
+circle() {
+radius=1.0;
+color="blue"; }
+circle(double radius)
+{ this.radius=radius;
+color="blue";
+}
+circle(double radius,String color)
+{
+this.radius=radius; this.color=color;
+}
+double getarea() {
+return Math.PI*radius*radius;
+}
+double getradius()
+{
+return radius; }
+String getcolor(){return color;}
+}
+class cylinder extends circle{
+double height;
+double getheight()
+	{	return height;
+} cylinder()
+{
+super(); height=2.0;
 }
 
-class Cylinder extends Circle {
-    double height;
-
-    Cylinder() {
-        super();
-        height = 2.0;
-    }
-
-    Cylinder(double height) {
-        super();
-        this.height = height;
-    }
-
-    Cylinder(double height, double radius) {
-        super(radius);
-        this.height = height;
-    }
-
-    Cylinder(double height, double radius, String color) {
-        super(radius, color);
-        this.height = height;
-    }
-
-    double getArea() {
-        return (2 * Math.PI * radius * height) + (2 * Math.PI * radius * radius);
-    }
-
-    double getVolume() {
-        return super.getArea() * height;
-    }
-
-    void display() {
-        System.out.println("Radius is " + super.radius + ", Height is " + height +
-            ", Color is " + super.color + ", Area is " + getArea() +
-            ", Volume is " + getVolume());
-    }
+cylinder(double height)
+{ super();
+this.height=height;
+}
+cylinder(double height, double radius)
+{ super(radius);
+this.height=height;
+}
+cylinder(double height,double radius, String color)
+{
+super(radius,color); this.height=height;
+}
+double getarea() {
+return ((2* Math.PI*radius*height)+(2* Math.PI*radius*radius));
+}
+double getvolume()
+{
+return (super.getarea()*height); }
+void display()
+{
+System.out.println("\nRadius is "+super.radius+",Height is
+"+height+", Color is "+super.color+",Area is "+getarea()+",Volume is
+"+getvolume()); }
+void check (cylinder c1,cylinder c2,int i,int j){
+if((c1.radius==c2.radius)&&
+(c1.height==c2.height)&&(c1.color.equalsIgnoreCase(c2.color)))
+System.out.println("The cylinders "+(i+1)+" and "+(j+1)+"are
+similar");
+}
+}
+public class Main { public static void main(String[] args) {
+Scanner s = new Scanner(System.in);
+cylinder[] c = new cylinder[4]; int i;
+c[0] = new cylinder();
+c[1] = new cylinder(3.0);
+c[2] = new cylinder(3.0, 4.0, "Green");
+System.out.println("Enter the details of cylinder 4 (height , radius and color)");
+ double h = s.nextDouble();
+double r = s.nextDouble();
+s.nextLine();
+String st = s.nextLine();
+c[3] = new cylinder(h, r, st);
+for (i = 0; i < 4; i++) {
+System.out.println("The dimensions of cylinder " + (i + 1) + " is ");
+c[i].display();
+}
+for (i = 0; i < 4; i++) { 
+int j;
+for (j = i + 1; j < 4; j++) {
+c[i].check(c[i], c[j], i, j); 
+}
 }
 
-public class Main {
-    public static void main(String[] args) {
-        Scanner s = new Scanner(System.in);
-        Cylinder[] c = new Cylinder[4];
-        c[0] = new Cylinder();
-        c[1] = new Cylinder();
-        c[2] = new Cylinder(3.0, 4.0, "Green");
-        c[3] = new Cylinder(3.0, 5.0, "Red");
-
-        for (int i = 0; i < c.length; i++) {
-            System.out.println("Cylinder " + (i + 1) + ":");
-            c[i].display();
-        }
-
-        for (int i = 0; i < c.length; i++) {
-            for (int j = i + 1; j < c.length; j++) {
-                if (c[i].getRadius() == c[j].getRadius() && c[i].getColor().equalsIgnoreCase(c[j].getColor())) {
-                    System.out.println("Cylinder " + (i + 1) + " and Cylinder " + (j + 1) + " are similar.");
-                }
-            }
-        }
-    }
+}
 }
