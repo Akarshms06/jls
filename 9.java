@@ -1,42 +1,68 @@
 package CIE;
+
+public class Internals extends Student {
+    public int[] internalMarks = new int[6];
+
+    public Internals(String usn, String name, int sem, int[] internalMarks) {
+        this.usn = usn;
+        this.name = name;
+        this.sem = sem;
+        this.internalMarks = internalMarks;
+    }
+}
+// File: CIE/Student.java
+package CIE;
+
 public class Student {
-    public String usn, name;
+    public String usn;
+    public String name;
     public int sem;
 }
-public class Internals extends Student {
-    public int[] internalMarks = new int[5];
-}
-
+// File: SEE/External.java
 package SEE;
+
+import CIE.Student;
+
 public class External extends Student {
-    public int[] externalMarks = new int[5];
+    public int[] seeMarks = new int[6];
+
+    public External(String usn, String name, int sem, int[] seeMarks) {
+        this.usn = usn;
+        this.name = name;
+        this.sem = sem;
+        this.seeMarks = seeMarks;
+    }
 }
+// File: Main.java
+import CIE.Internals;
+import SEE.External;
 
-import CIE.*;
-import SEE.*;
-public class FinalMarks {
+public class Main {
     public static void main(String[] args) {
-        int n = 3; // number of students
-        Internals[] cie = new Internals[n];
-        External[] see = new External[n];
-
-        // input the marks for each student
-        for (int i = 0; i < n; i++) {
-            cie[i] = new Internals();
-            see[i] = new External();
-            for (int j = 0; j < 5; j++) {
-                cie[i].internalMarks[j] = // input value for internal mark for course j
-                see[i].externalMarks[j] = // input value for external mark for course j
-            }
+        int N = 5; // Example number of students
+        Internals[] internalStudents = new Internals[N];
+        External[] externalStudents = new External[N];
+        
+        // Example data
+        for (int i = 0; i < N; i++) {
+            internalStudents[i] = new Internals("USN" + (i + 1), "Student" + (i + 1), 3, new int[]{80, 85, 75, 90, 88, 92});
+            externalStudents[i] = new External("USN" + (i + 1), "Student" + (i + 1), 3, new int[]{70, 75, 65, 80, 78, 82});
         }
-
-        // print the final marks for each student
-        for (int i = 0; i < n; i++) {
-            System.out.println("Final marks for student " + (i + 1) + ":");
-            for (int j = 0; j < 5; j++) {
-                int finalMark = cie[i].internalMarks[j] + see[i].externalMarks[j];
-                System.out.println("Course " + (j + 1) + ": " + finalMark);
+        
+        for (int i = 0; i < N; i++) {
+            System.out.println("Student: " + internalStudents[i].name);
+            System.out.println("USN: " + internalStudents[i].usn);
+            System.out.println("Semester: " + internalStudents[i].sem);
+            
+            int totalMarks = 0;
+            for (int j = 0; j < 6; j++) {
+                int finalMarks = internalStudents[i].internalMarks[j] + externalStudents[i].seeMarks[j];
+                totalMarks += finalMarks;
+                System.out.println("Course " + (j + 1) + " Final Marks: " + finalMarks);
             }
+            System.out.println("Total Marks: " + totalMarks + "\n");
         }
     }
 }
+
+
