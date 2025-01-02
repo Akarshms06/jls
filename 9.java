@@ -10,7 +10,7 @@ public class Internals extends Student {
         this.internalMarks = internalMarks;
     }
 }
-// File: CIE/Student.java
+
 package CIE;
 
 public class Student {
@@ -18,7 +18,7 @@ public class Student {
     public String name;
     public int sem;
 }
-// File: SEE/External.java
+
 package SEE;
 
 import CIE.Student;
@@ -33,27 +33,26 @@ public class External extends Student {
         this.seeMarks = seeMarks;
     }
 }
-// File: Main.java
+
 import CIE.Internals;
 import SEE.External;
 
 public class Main {
     public static void main(String[] args) {
-        int N = 5; // Example number of students
+        int N = 5;
         Internals[] internalStudents = new Internals[N];
         External[] externalStudents = new External[N];
-        
-        // Example data
+
         for (int i = 0; i < N; i++) {
             internalStudents[i] = new Internals("USN" + (i + 1), "Student" + (i + 1), 3, new int[]{80, 85, 75, 90, 88, 92});
             externalStudents[i] = new External("USN" + (i + 1), "Student" + (i + 1), 3, new int[]{70, 75, 65, 80, 78, 82});
         }
-        
+
         for (int i = 0; i < N; i++) {
             System.out.println("Student: " + internalStudents[i].name);
             System.out.println("USN: " + internalStudents[i].usn);
             System.out.println("Semester: " + internalStudents[i].sem);
-            
+
             int totalMarks = 0;
             for (int j = 0; j < 6; j++) {
                 int finalMarks = internalStudents[i].internalMarks[j] + externalStudents[i].seeMarks[j];
@@ -64,5 +63,3 @@ public class Main {
         }
     }
 }
-
-
