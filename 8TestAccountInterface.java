@@ -1,53 +1,59 @@
-class TestAccountInterface {
-public static void main(String s[])
-{
-IAccount account = new HDFCAccount();
-System.out.println("Transacting using HDFC Account");
-transactOnAccount(account); System.out.println();
-account = new StateBankAccount();
-System.out.println("Transacting using State Bank Account"); transactOnAccount(account);
+interface Account {
+ double getBalance();
+ void deposit(double amount);
+ void withdraw(double amount);
 }
-public static void transactOnAccount(IAccount account)
-{
-System.out.println("------------------------------");
-account.deposit(10000.0);
-printBalance("depositing 10,000.0", account); account.withdraw(2500.0);
-printBalance("withdrawing 2,500.0", account);
-account.withdraw(4100.0);
-printBalance("withdrawing 4,100.0", account);
-account.deposit(5000.0);
-printBalance("depositing 5,000.0", account);
-System.out.println("------------------------------");
+class HDFCAccount implements Account {
+ private double deposits = 0.0;
+ private double withdrawals = 0.0;
+ @Override
+ public double getBalance() {
+ return deposits - withdrawals;
+ }
+ @Override
+ public void deposit(double amount) {
+ deposits += amount;
+ }
+ @Override
+ public void withdraw(double amount) {
+ if (amount <= getBalance()) {
+ withdrawals += amount;
+ } else {
+ System.out.println("Insufficient balance");
 }
-public static void printBalance(String message, IAccount account) {
-System.out.println("The balance after " + message + " is " +
-account.getBalance() +"."); }
 }
-interface IAccount {
-double getBalance();
-void deposit(double amount); void withdraw(double amount);
 }
-class HDFCAccount implements IAccount {
-double deposits;
-double withdrawals; public double getBalance()
-{
-return deposits - withdrawals; }
-public void deposit(double amount)
-{ deposits += amount;
+class StateBankAccount implements Account {
+ private double balance = 0.0;
+ @Override
+ public double getBalance() {
+ return balance;
+ }
+ @Override
+ public void deposit(double amount) {
+ balance += amount;
+ }
+ @Override
+ public void withdraw(double amount) {
+ if (amount <= balance) {
+ balance -= amount;
+ } else {
+ System.out.println("Insufficient balance");
+ }
+ }
 }
-public void withdraw(double amount)
-{
-withdrawals += amount; }
-}
-class StateBankAccount implements IAccount {
-double balance;
-public double getBalance() {
-return balance;
-}
-public void deposit(double amount)
-{
-balance += amount; }
-public void withdraw(double amount)
-{ balance -= amount;
-}
+public class Main {
+ public static void main(String[] args) {
+ Account hdfc = new HDFCAccount();
+ Account sbi = new StateBankAccount();
+ hdfc.deposit(1000);
+ hdfc.withdraw(200);
+ sbi.deposit(2000);
+ sbi.withdraw(500);
+ printBalance(hdfc);
+printBalance(sbi);
+ }
+ public static void printBalance(Account account) {
+ System.out.println("Balance: " + account.getBalance());
+ }
 }
